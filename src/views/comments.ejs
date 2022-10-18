@@ -1,0 +1,51 @@
+<section id="app">
+  <a href="/"><- Voltar</a><br>
+  <h1>{{post.Title}}</h1>
+  <p>{{post.Content}}</p>
+  <br>
+  <h3>Comentários</h3>
+  <ul>
+    <!-- Utilize looping v-for do VueJs para exibir os comentários (título e conteúdo) de forma dinâmica -->
+    <li v-for="comment in comments" :key="comment.id">
+      <h5>{{ comment.UserName }}</h5>
+      <p>{{ comment.Comment }}</p>
+      <small>Comentado em {{ comment.CreatedAt }}</small>
+    </li>
+  </ul>
+</section>
+
+<script>
+  var http = axios.create({
+    baseURL: "<%- apiUrl%>",
+    timeout: 10000,
+  });
+  const postId = "<%- postId %>"
+
+  var app = new Vue({
+    el: "#app",
+    data: {
+      post: {},
+      comments: []
+    },
+    methods: {
+      loadPost() {
+        http.get("/posts/" + postId).then((response) => {
+          this.post = response.data;
+        });
+      },
+      loadComments() {
+        //TODO: Criar função que realiza a chamada na API retornando os comentários pelo id do post
+        //para usar o id do post utilize a constate postId criada a cima
+        http.get("/comments/").then((response) => {
+          this.comments = response.data;
+        })
+      }
+    },
+    mounted() {
+      this.loadPost();
+      //TODO: Faça a chamada da função que carrega os comentários
+      this.loadComments();
+      console.log(this);
+    },
+  });
+</script>
