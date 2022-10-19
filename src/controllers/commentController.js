@@ -9,8 +9,17 @@ module.exports = class CommentController {
   }
 
   static listById (request, response, next) {
-    CommentService.listById(request.params.id)
+    const idToNumber = parseInt(request.params.id)
+    CommentService.listById(idToNumber)
       .then((unities) => response.status(200).send(unities))
+      .catch(next)
+  }
+
+  static createComment (request, response, next) {
+    // Testando create Comment
+    console.log(request)
+    CommentService.createComment()
+      .then(() => response.status(200).send('Okay'))
       .catch(next)
   }
 }

@@ -43,6 +43,7 @@ src
 ### Instalação
 Para realizar a instalação da aplicação:
  - Instale as dependências pelo comando `npm install`
+ - Caso o NPM INSTALL não instale o knex globalmente, execute `npm install knex`
  - Execute as migrations no banco de dados pelo comando `knex migrate:latest`
  - Popule o banco com dados de exemplo pelo comando `knex seed:run`
  - Por fim execute o comando `npm run dev`
