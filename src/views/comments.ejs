@@ -7,11 +7,36 @@
   <ul>
     <!-- Utilize looping v-for do VueJs para exibir os comentários (título e conteúdo) de forma dinâmica -->
     <li v-for="comment in comments" :key="comment.id">
-      <h5>{{ comment.UserName }}</h5>
-      <p>{{ comment.Comment }}</p>
+      <h5>Por: {{ comment.UserName }}</h5>
+      <p>"{{ comment.Comment }}"</p>
       <small>Comentado em {{ comment.CreatedAt }}</small>
     </li>
   </ul>
+  <h3>Adicione um comentario</h3>
+  <form @submit="onSubmit">
+    <div>
+      <label>Nome de usuario</label>
+      <input 
+        type="text" 
+        v-model="user" 
+        name="user" 
+        placeholder="Usuario" 
+      />
+    </div>
+    <div>
+      <label>Adicionar comentario</label>
+      <input
+        type="text"
+        v-model="comment"
+        name="comment"
+        placeholder="Digite um comentario"
+      />
+    </div>
+    <input 
+      type="submit" 
+      value="Add comment"
+    />
+  </form>
 </section>
 
 <script>
@@ -25,7 +50,9 @@
     el: "#app",
     data: {
       post: {},
-      comments: []
+      comments: [],
+      user: '',
+      comment: ''
     },
     methods: {
       loadPost() {
@@ -39,6 +66,15 @@
         http.get("/comments/" + postId).then((response) => {
           this.comments = response.data;
         })
+      },
+      onSubmit(e){
+        e.preventDefault()
+        if(!this.user){
+            alert('Por favor, digite seu usuario!')
+            return
+        }
+
+        http.post("/comments/" + postId, { user: this.user, comment: this.comment })
       }
     },
     mounted() {

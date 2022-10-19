@@ -19,19 +19,20 @@ module.exports = class CommentRepository {
 
   static async listById (id) {
     const result = await database('Comments')
-      .where('PostId', 2)
+      .where('PostId', id)
 
     return result
   }
 
-  static async createComment (user, comment, id) {
+  static async createComment (user, comment, postId) {
     const result = await database
       .insert([
         {
-          user: user,
+          postId,
+          username: user,
           comment: comment
         }
-      ], [id])
+      ])
       .into('Comments')
 
     return result

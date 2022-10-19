@@ -37,7 +37,7 @@ src
 └───repository --> Camada de acesso ao banco de dados
 └───routes --> Configuração de rotas da aplicação
 └───service --> Camada das regras de negócios da aplicação
-└───util --> Funções uteis a toda a plicação
+└───util --> Funções uteis a toda aplicação
 └───views --> Os arquivos que renderizam no front-end
 ```
 ### Instalação

@@ -17,9 +17,12 @@ module.exports = class CommentController {
 
   static createComment (request, response, next) {
     // Testando create Comment
-    console.log(request)
-    CommentService.createComment()
-      .then(() => response.status(200).send('Okay'))
+    const { user, comment } = request.body
+    const postId = request.params.postId
+    CommentService.createComment(user, comment, postId)
+      .then((unities) => {
+        response.status(200).send(unities)
+      })
       .catch(next)
   }
 }
