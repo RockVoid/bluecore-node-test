@@ -9,4 +9,8 @@ module.exports = class CommentService {
   static async listById (id) {
     return await CommentRepository.listById(id)
   }
+
+  static async createComment () {
+    return await CommentRepository.createComment()
+  }
 }

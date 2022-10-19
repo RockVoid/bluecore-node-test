@@ -3,6 +3,30 @@
   <ul>
     <li v-for="post in posts"><a :href="`/${post.Id}/post`">{{ post.Title }}</a></li>
   </ul>
+  <form @submit="onSubmit">
+    <div>
+      <label>Registro</label>
+      <input 
+        type="text" 
+        v-model="user" 
+        name="user" 
+        placeholder="Usuario" 
+      />
+    </div>
+    <div>
+      <label>Adicionar comentario</label>
+      <input
+        type="text"
+        v-model="comment"
+        name="comment"
+        placeholder="Digite um comentario"
+      />
+    </div>
+    <input 
+      type="submit" 
+      value="Add comment"
+    />
+  </form>
 </section>
 
 <script>
@@ -15,6 +39,8 @@
     el: "#app",
     data: {
       posts: [],
+      user: '',
+      comment: ''
     },
     methods: {
       loadPosts() {
@@ -22,6 +48,18 @@
           this.posts = response.data;
         });
       },
+      onSubmit(e){
+        e.preventDefault()
+        console.log(e.target)
+        if(!this.user){
+            alert('Por favor, digite seu usuario!')
+            return
+        }
+
+        http.post("/comments", { user: 'user', comment: 'comment' }).then((response) => {
+          console.log(response.data);
+        })
+      }
     },
     mounted() {
       this.loadPosts();

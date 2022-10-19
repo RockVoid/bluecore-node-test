@@ -36,7 +36,7 @@
       loadComments() {
         //TODO: Criar função que realiza a chamada na API retornando os comentários pelo id do post
         //para usar o id do post utilize a constate postId criada a cima
-        http.get("/comments/").then((response) => {
+        http.get("/comments/" + postId).then((response) => {
           this.comments = response.data;
         })
       }
@@ -45,7 +45,6 @@
       this.loadPost();
       //TODO: Faça a chamada da função que carrega os comentários
       this.loadComments();
-      console.log(this);
     },
   });
 </script>
